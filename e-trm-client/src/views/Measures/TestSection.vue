@@ -1,10 +1,27 @@
 <template>
   <div class="column">
     <div class="columns">
-      <div class="column is-9 params">
+      <div class="column is-6 params">
       <h4 class="subtitle is-4">Parameters</h4>
         <div class="column">
-          <div class="field is-horizontal" v-for="param in measure.parameters">
+          <div class="field" v-for="param in measure.parameters">
+            <label class="label" disabled="param.isConstant">{{param.displayName}}</label>
+            <p class="control">
+              <input v-if="!isNumeric(param.type)" class="input"
+              type="text"
+              v-model="testParams[param.name]"
+              @change="handleTestParamChange()"
+              :placeholder="param.description"
+              :disabled="param.isConstant">
+              <input v-else class="input"
+              type="number"
+              v-model="testParams[param.name]"
+              @change="handleTestParamChange()"
+              :placeholder="param.description"
+              :disabled="param.isConstant">
+            </p>
+          </div>
+          <!-- <div class="field is-horizontal" v-for="param in measure.parameters">
             <div class="field-label" :disabled="param.isConstant">
               {{param.displayName}}
             </div>
@@ -26,7 +43,7 @@
                     </div>
                   </div>
             </div>
-          </div>
+          </div> -->
 
           <!-- <div class="field" v-for="param in measure.parameters">
             <label class="label">{{param.name}}</label>
@@ -43,7 +60,7 @@
 
       </div>
 
-      <div class="column">
+      <div class="column params">
         <!-- <div class="content">
           <h4>Parameters</h4>
           <table>
@@ -174,4 +191,5 @@ export default {
   background-color: #ffffff;
   border: 1px solid #e8e8e8;
 }
+
 </style>

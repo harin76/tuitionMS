@@ -18,7 +18,7 @@ export default {
   components: { editor },
   data () {
     return {
-      options: {fontSize: '1.2em'}
+      options: {fontSize: '1em'}
     }
   },
   props: {
