@@ -17,9 +17,14 @@ export default new Router({
       component: createWorkarea('ListMeasures')
     },
     {
-      path: '/create-measure',
-      name: 'Create Measure',
-      component: createWorkarea('CreateMeasure')
+      path: '/measure',
+      name: 'CreateMeasure',
+      component: createWorkarea('Measure')
+    },
+    {
+      path: '/measure/:id',
+      name: 'EditMeasure',
+      component: createWorkarea('Measure')
     }
   ]
 })

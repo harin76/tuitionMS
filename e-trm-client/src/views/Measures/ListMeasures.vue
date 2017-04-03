@@ -29,8 +29,8 @@ export default {
       titleCreate: 'Create New',
       modalIsActive: false,
       columns: [
-        {caption: 'Name', name: 'name', type: 'link', onClick: (d) => d.name},
-        {caption: 'Description', name: 'description'},
+        {caption: 'Name', name: 'name', type: 'link', onClick: (d) => d.id},
+        // {caption: 'Description', name: 'description'},
         {caption: 'Market Sector', name: 'marketSector'},
         {caption: 'End Use', name: 'endUse'},
         {caption: 'Current Version', name: 'currentVersion'},
@@ -45,18 +45,20 @@ export default {
   },
   methods: {
     ...mapActions('measures', [
-      'list'
+      'list',
+      'setMeasure'
     ]),
     handleAddNew (e) {
-      console.log(e)
-      this.$router.push('/create-measure')
+      this.$router.push('/measure')
     },
-    handleLinkClicked (e) {
+    handleLinkClicked (id) {
       // Edit?
-      console.log(e)
+      const measure = this.measures.find((l) => l.id === id)
+      this.setMeasure(measure)
+      this.$router.push(this.getEditUrl(id))
     },
     getEditUrl (id) {
-      return '/edit-measure/' + id
+      return '/measure/' + id
     }
   }
 }

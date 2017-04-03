@@ -13,7 +13,7 @@
       </div>
     </div>
     <!-- DATA TABLE HERE !-->
-    <table class="table">
+    <table class="table is-bordered is-narrow">
       <thead>
         <tr>
           <th v-for="column in columns"> {{column.caption | capitalize}}</th>
@@ -44,9 +44,15 @@ export default {
   },
   filters: {
     capitalize: function (str) {
+      if (!str) {
+        return ''
+      }
       return str.charAt(0).toUpperCase() + str.slice(1)
     },
     shorten: function (str) {
+      if (!str) {
+        return ''
+      }
       return str.substr(0, 100)
     }
   },

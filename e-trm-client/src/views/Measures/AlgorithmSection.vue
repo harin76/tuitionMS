@@ -1,5 +1,5 @@
 <template>
-  <div class="column">
+  <div class="column editor">
     <editor :content="script || ''" :lang="'text'" :theme="'github'" :height="'500px'"></editor>
   </div>
 </template>
@@ -26,3 +26,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+  .editor {
+    font-size: large;
+  }
+</style>

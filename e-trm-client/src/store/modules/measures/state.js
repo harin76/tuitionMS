@@ -10,8 +10,8 @@ const createNew = () => ({
 const state = {
   measures: [],
   errors: null,
-  newMeasure: createNew(),
-  newMeasureCurrentTab: 'general'
+  measure: createNew(),
+  measureCurrentTab: 'general'
 }
 
 export default state

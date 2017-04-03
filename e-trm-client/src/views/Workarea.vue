@@ -13,7 +13,7 @@ import Sidemenu from '@/components/Sidemenu'
 import Navbar from '@/components/Navbar'
 import Home from '@/views/Home'
 import ListMeasures from '@/views/Measures/ListMeasures'
-import CreateMeasure from '@/views/Measures/CreateMeasure'
+import Measure from '@/views/Measures/Measure'
 
 export default {
   name: 'workarea',
@@ -22,7 +22,7 @@ export default {
     Navbar,
     Home,
     ListMeasures,
-    CreateMeasure
+    Measure
   },
   data () {
     return {

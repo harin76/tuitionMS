@@ -2,10 +2,11 @@ import {
   SET_MEASURES,
   SET_MEASURE_FETCH_ERROR,
   SET_MEASURE_CREATE_ERROR,
-  SET_NEW_MEASURE,
-  SET_NEW_MEASURE_ATTRIBUTE,
-  CLEAR_NEW_MEASURE,
-  SET_NEW_MEASURE_CURRENT_TAB
+  SET_MEASURE_SAVE_ERROR,
+  SET_MEASURE,
+  SET_MEASURE_ATTRIBUTE,
+  CLEAR_MEASURE,
+  SET_MEASURE_CURRENT_TAB
 } from '@/store/mutation-types'
 
 const mutations = {
@@ -20,25 +21,28 @@ const mutations = {
   [SET_MEASURE_CREATE_ERROR]: (state, value) => {
     state.errors = value
   },
-  [SET_NEW_MEASURE]: (state, newMeasure) => {
-    state.newMeasure = newMeasure
+  [SET_MEASURE_SAVE_ERROR]: (state, value) => {
+    state.errors = value
   },
-  [SET_NEW_MEASURE_ATTRIBUTE]: (state, attribute) => {
-    state.newMeasure = Object.assign({}, state, attribute)
+  [SET_MEASURE]: (state, measure) => {
+    state.measure = measure
   },
-  [CLEAR_NEW_MEASURE]: (state) => {
-    state.newMeasure = {
+  [SET_MEASURE_ATTRIBUTE]: (state, attribute) => {
+    state.measure = Object.assign({}, state.measure, attribute)
+  },
+  [CLEAR_MEASURE]: (state) => {
+    state.measure = {
       name: null,
       description: null,
-      version: null,
+      currentVersion: null,
       referenceTables: [],
       lookupTables: [],
       algorithm: null
     }
-    state.newMeasureCurrentTab = 'general'
+    state.measureCurrentTab = 'general'
   },
-  [SET_NEW_MEASURE_CURRENT_TAB]: (state, currentTab) => {
-    state.newMeasureCurrentTab = currentTab
+  [SET_MEASURE_CURRENT_TAB]: (state, currentTab) => {
+    state.measureCurrentTab = currentTab
   }
 }
 

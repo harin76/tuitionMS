@@ -7,7 +7,6 @@
   export default {
     name: 'app',
     created () {
-      console.log(this)
       this.setReferenceData()
     },
     methods: {
