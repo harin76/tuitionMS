@@ -2,7 +2,7 @@
   <section class="section">
   <div class="columns">
     <div class="column is-10">
-      <h1 class="title">{{title}}</h1>
+      <h1 class="title is-2">{{title}}</h1>
     </div>
   </div>
   <!-- TABLE HERE !-->

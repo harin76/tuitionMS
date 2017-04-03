@@ -1,7 +1,7 @@
 <template>
   <div class="column">
     <div class="columns">
-      <div class="column is-8 params">
+      <div class="column is-9 params">
       <h4 class="subtitle is-4">Parameters</h4>
         <div class="column">
           <div class="field is-horizontal" v-for="param in measure.parameters">
@@ -36,7 +36,7 @@
           </div> -->
 
           <div class="block is-pulled-right">
-            <a class="button is-primary" @click="handleRun">Run</a>
+            <a class="button is-primary" @click="handleCalculate">Calculate</a>
             <a class="button is-link" @click="handleClear">Clear</a>
           </div>
         </div>
@@ -60,6 +60,7 @@
               <td>{{key | titleCase}}</td><td class="has-text-right"><span class="value">{{round(value)}}</span></td>
             </tr>
           </table>
+          <p class="has-text-right"><small>Calculation took {{calculationTime}} ms </small></p>
         </div>
       </div>
 
@@ -76,7 +77,8 @@ export default {
   data () {
     return {
       result: null,
-      testParams: this.createTestParam()
+      testParams: this.createTestParam(),
+      calculationTime: null
     }
   },
   props: {
@@ -111,6 +113,7 @@ export default {
     clear () {
       this.testParams = this.createTestParam()
       this.result = null
+      this.calculationTime = null
     },
     parseTestParam () {
       const param = {}
@@ -133,18 +136,22 @@ export default {
     },
     run () {
       this.result = null
+      this.calculationTime = null
       const context = Object.assign({}, {
         lookupTables: this.measure.lookupTables
       }, this.parseTestParam())
 
       const omitAttribs = ['lookupTables', ...Object.keys(this.testParams)]
       try {
+        const start = new Date()
         this.result = _.omit(JSOEE.eval(this.measure.algorithm, context), omitAttribs)
+        const end = new Date()
+        this.calculationTime = end - start
       } catch (error) {
         console.error(error)
       }
     },
-    handleRun () {
+    handleCalculate () {
       this.run()
     },
     handleClear () {
@@ -164,6 +171,7 @@ export default {
   font-weight: lighter;
 }
 .params {
-  background-color: #fff;
+  background-color: #ffffff;
+  border: 1px solid #e8e8e8;
 }
 </style>

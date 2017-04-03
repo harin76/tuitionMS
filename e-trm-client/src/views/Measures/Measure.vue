@@ -2,7 +2,8 @@
   <section class="section">
     <div class="columns">
       <div class="column is-8">
-        <h1 class="title">{{title}}</h1>
+        <h1 class="title is-2">{{title}}</h1>
+        <h1 class="subtitle is-4">{{measure.name}}</h1>
       </div>
       <div class="column is-4">
         <div class="block is-pulled-right">

@@ -1,17 +1,26 @@
 <template>
   <div class="column editor">
-    <editor :content="script || ''" :lang="'text'" :theme="'github'" :height="'500px'"></editor>
+    <editor :content="script || ''" :lang="'javascript'" :theme="'github'" :height="'700px'" :options="options"></editor>
   </div>
 </template>
 
 <script>
 import editor from 'vue2-ace'
-import 'brace/mode/text'
+import 'brace/mode/javascript'
 import 'brace/theme/github'
+import 'brace/theme/sqlserver'
+import 'brace/theme/tomorrow_night'
+import 'brace/theme/tomorrow_night_bright'
+import 'brace/theme/tomorrow_night_blue'
 
 export default {
   name: 'algorithm-section',
   components: { editor },
+  data () {
+    return {
+      options: {fontSize: '1.2em'}
+    }
+  },
   props: {
     script: String
   },
