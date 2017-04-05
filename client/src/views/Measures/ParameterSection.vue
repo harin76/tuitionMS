@@ -1,126 +1,138 @@
 <template>
-  <div class="column">
-    <div class="columns">
-      <div class="column">
-        <div class="block is-pulled-right">
-          <a class="button is-outlined" v-on:click="handleAddParameter">Add Parameter</a>
-        </div>
+  <div class="grid-container">
+    <nav class="level">
+      <div class="level-left">
       </div>
+      <div class="level-right">
+        <p class="level-item">
+           <a class="button is-outlined" v-on:click="handleAddParameter">Add Parameter</a>
+        </p>
+      </div>
+    </nav>
+    <div class="table-wrapper">
+      <table class="table is-bordered is-narrow nobreak">
+      <thead>
+        <tr>
+          <th> Name </th>
+          <th> Type </th>
+          <th> Mandatory </th>
+          <th> Is Constant </th>
+          <th> Default Value </th>
+          <th> Unit </th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="param in params">
+          <td class="nobreak"><a v-on:click="handleParamSelect(param.id)">{{param.displayName}}</a></td>
+          <td>{{param.type}}</td>
+          <td>{{param.mandatory}}</td>
+          <td>{{param.isConstant ? 'Yes' : 'No'}}</td>
+          <td class="has-text-right">{{param.defaultValue}}</td>
+          <td>{{param.unit}}</td>
+          <td class="has-text-centered"><a class="delete is-small" v-on:click="handleDelete(param.id)"></a></td>
+        </tr>
+      </tbody>
+    </table>
     </div>
-    <div class="columns">
-      <div class="column">
-        <table class="table is-bordered">
-          <thead>
-            <tr>
-              <th> Name </th>
-              <!-- <th> Description </th> -->
-              <th> Type </th>
-              <th> Mandatory </th>
-              <th> Is Constant </th>
-              <th> Default Value </th>
-              <th> Unit </th>
-              <th>&nbsp;</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="param in params">
-              <td><a v-on:click="handleParamSelect(param.id)">{{param.displayName}}</a></td>
-              <!-- <td>{{param.description}}</td> -->
-              <td>{{param.type}}</td>
-              <td>{{param.mandatory}}</td>
-              <td>{{param.isConstant ? 'Yes' : 'No'}}</td>
-              <td class="has-text-right">{{param.defaultValue}}</td>
-              <td>{{param.unit}}</td>
-              <td class="has-text-centered"><a class="delete is-small" v-on:click="handleDelete(param.id)"></a></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <transition name="fade">
-        <div class="column is-4 form" v-if="show">
+    <transition name="fade">
+      <div class="slider" v-if="show">
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+            </p>
+            <a class="card-header-icon">
+              <span class="icon">
+                <a @click="handleClose"><icon name="times"></icon></a>
+              </span>
+            </a>
+          </header>
+          <div class="card-content">
+            <div class="card-scroll-content">
+              <div class="field">
+                <label class="label">Name</label>
+                <p class="control">
+                  <input class="input" v-model="name" type="text" placeholder="Name">
+                </p>
+              </div>
 
-        <div class="field">
-          <label class="label">Name</label>
-          <p class="control">
-            <input class="input" v-model="name" type="text" placeholder="Name">
-          </p>
-        </div>
+              <div class="field">
+                <label class="label">Display Name</label>
+                <p class="control">
+                  <input class="input" v-model="displayName" type="text" placeholder="Display Name">
+                </p>
+              </div>
 
-        <div class="field">
-          <label class="label">Display Name</label>
-          <p class="control">
-            <input class="input" v-model="displayName" type="text" placeholder="Display Name">
-          </p>
-        </div>
+              <div class="field">
+                <label class="label">Description</label>
+                <p class="control">
+                  <textarea class="textarea" v-model="description" placeholder="Description"></textarea>
+                </p>
+              </div>
+              <div class="field">
+                <label class="label">Type</label>
+                <p class="control">
+                  <span class="select">
+                    <select v-model="type">
+                      <option v-for="option in ['String', 'Number', 'Integer', 'Boolean', 'List']"> {{ option }}</option>
+                    </select>
+                  </span>
+                </p>
+              </div>
 
-        <div class="field">
-          <label class="label">Description</label>
-          <p class="control">
-            <textarea class="textarea" v-model="description" placeholder="Description"></textarea>
-          </p>
-        </div>
-        <!-- type, mandatory, default, units -->
-        <div class="field">
-          <label class="label">Type</label>
-          <p class="control">
-            <span class="select">
-              <select v-model="type">
-                <option v-for="option in ['String', 'Number', 'Integer', 'Boolean', 'List']"> {{ option }}</option>
-              </select>
-            </span>
-          </p>
-        </div>
+              <div class="field">
+                <label class="label">Mandatory</label>
+                <p class="control">
+                  <span class="select">
+                    <select v-model="mandatory">
+                      <option v-for="option in ['Yes', 'No']"> {{ option }}</option>
+                    </select>
+                  </span>
+                </p>
+              </div>
+              <div class="field">
+                <p class="control">
+                  <label class="checkbox">
+                    <input type="checkbox" v-model="isConstant">
+                    Is Constant
+                  </label>
+                </p>
+              </div>
+              <div class="field">
+                <label class="label">Default Value</label>
+                <p class="control">
+                  <input class="input" v-model="defaultValue" type="text" placeholder="Default Value">
+                </p>
+              </div>
 
-        <div class="field">
-          <label class="label">Mandatory</label>
-          <p class="control">
-            <span class="select">
-              <select v-model="mandatory">
-                <option v-for="option in ['Yes', 'No']"> {{ option }}</option>
-              </select>
-            </span>
-          </p>
-        </div>
-        <div class="field">
-          <p class="control">
-            <label class="checkbox">
-              <input type="checkbox" v-model="isConstant">
-              Is Constant
-            </label>
-          </p>
-        </div>
-        <div class="field">
-          <label class="label">Default Value</label>
-          <p class="control">
-            <input class="input" v-model="defaultValue" type="text" placeholder="Default Value">
-          </p>
-        </div>
-
-        <div class="field">
-          <label class="label">Unit</label>
-          <p class="control">
-            <input class="input" v-model="unit" type="text" placeholder="Unit">
-          </p>
-        </div>
-
-        <div class="column">
-          <div class="block is-pulled-right">
-            <a class="button is-primary" v-on:click="handleAdd">{{ this.id ? 'Save' : 'Add' }}</a>
-            <a class="button is-link" v-on:click="handleClear">Clear</a>
+              <div class="field">
+                <label class="label">Unit</label>
+                <p class="control">
+                  <input class="input" v-model="unit" type="text" placeholder="Unit">
+                </p>
+              </div>
+            </div>
           </div>
+          <footer class="card-footer">
+            <a class="card-footer-item is-primary" v-on:click="handleAdd">{{ this.id ? 'Save' : 'Add' }}</a>
+            <a class="card-footer-item" v-on:click="handleClear">Clear</a>
+          </footer>
         </div>
-
       </div>
-      </transition>
-    </div>
+    </transition>
   </div>
 </template>
 
 <script>
 import _ from 'lodash'
+import Icon from 'vue-awesome/components/Icon.vue'
+import 'vue-awesome/icons/times'
 
 export default {
   name: 'parameter-section',
+  components: {
+    Icon
+  },
   props: {
     data: { type: Array, required: true }
   },
@@ -224,6 +236,9 @@ export default {
     },
     hideForm () {
       this.show = false
+    },
+    handleClose () {
+      this.hideForm()
     }
   }
 }
@@ -231,18 +246,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
- .form {
-   border: 1px solid #ccc;
-   background-color: #eaeaea;
-   margin-top: 10px;
- }
-
-.fade-enter-active, .fade-leave-active {
- transition: opacity .5s
-}
-
-.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
-  opacity: 0
-}
 
 </style>

@@ -1,69 +1,79 @@
 <template>
-  <div class="column">
-    <div class="columns">
-      <div class="column">
-        <div class="block is-pulled-right">
+  <div class="grid-container">
+    <nav class="level">
+      <div class="level-left">
+      </div>
+      <div class="level-right">
+        <p class="level-item">
           <a class="button is-outlined" v-on:click="handleAddLookup">Add Lookup Table</a>
-        </div>
+        </p>
       </div>
+    </nav>
+    <div class="table-wrapper">
+      <table class="table is-narrow is-bordered">
+        <thead>
+          <tr>
+            <th> Name </th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="lookup in lookupKeys">
+            <td><a v-on:click="handleLookupSelect(lookup)">{{lookup}}</a></td>
+            <td class="has-text-centered"><a class="delete is-small" v-on:click="handleDelete(lookup)"></a></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <div class="columns">
-      <div class="column">
-        <table class="table is-bordered">
-          <thead>
-            <tr>
-              <th> Name </th>
-              <th>&nbsp;</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="lookup in lookupKeys">
-              <td><a v-on:click="handleLookupSelect(lookup)">{{lookup}}</a></td>
-              <td class="has-text-centered"><a class="delete is-small" v-on:click="handleDelete(lookup)"></a></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <transition name="fade">
-        <div class="column is-6 form" v-if="show">
+    <transition name="fade">
+      <div class="slider" v-if="show">
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+            </p>
+            <a class="card-header-icon">
+              <span class="icon">
+                <a @click="handleClose"><icon name="times"></icon></a>
+              </span>
+            </a>
+          </header>
+          <div class="card-content">
+            <div class="card-scroll-content">
+              <div class="column">
+                <div class="block is-pulled-right">
+                  <a class="button is-small" @click="handleToggleGrid"> <icon name="th-list"></icon></a>
+                </div>
+              </div>
 
-        <div class="column">
-          <div class="block is-pulled-right">
-            <a class="button is-small" @click="handleToggleGrid"> <icon name="th-list"></icon></a>
+              <div class="field">
+                <label class="label">Name</label>
+                <p class="control">
+                  <input class="input" v-model="name" type="text" placeholder="Name">
+                </p>
+              </div>
+
+              <div class="field">
+                <label class="label">Values</label>
+                <p class="control" v-if="!grid">
+                  <textarea class="textarea csv-bin" rows="10" v-model="values" placeholder="Values"></textarea>
+                </p>
+                <p class="control" v-if="grid">
+                  <table class="table is-narrow is-bordered">
+                    <tr v-for="row in getRows()">
+                      <td v-for="col in row">{{col}}</td>
+                    </tr>
+                  </table>
+                </p>
+              </div>
+            </div>
           </div>
+          <footer class="card-footer">
+            <a class="card-footer-item is-primary" v-on:click="handleAdd">{{ this.currentLookup ? 'Save' : 'Add' }}</a>
+            <a class="card-footer-item" v-on:click="handleClear">Clear</a>
+          </footer>
         </div>
-
-        <div class="field">
-          <label class="label">Name</label>
-          <p class="control">
-            <input class="input" v-model="name" type="text" placeholder="Name">
-          </p>
-        </div>
-
-        <div class="field">
-          <label class="label">Values</label>
-          <p class="control" v-if="!grid">
-            <textarea class="textarea csv-bin" rows="20" v-model="values" placeholder="Values"></textarea>
-          </p>
-          <p class="control" v-if="grid">
-            <table class="table is-narrow is-bordered">
-              <tr v-for="row in getRows()">
-                <td v-for="col in row">{{col}}</td>
-              </tr>
-            </table>
-          </p>
-        </div>
-
-        <div class="column">
-          <div class="block is-pulled-right">
-            <a class="button is-primary" v-on:click="handleAdd">{{ this.currentLookup ? 'Save' : 'Add' }}</a>
-            <a class="button is-link" v-on:click="handleClear">Clear</a>
-          </div>
-        </div>
-
       </div>
     </transition>
-    </div>
   </div>
 </template>
 
@@ -72,6 +82,7 @@ import Icon from 'vue-awesome/components/Icon.vue'
 import 'vue-awesome/icons/table'
 import 'vue-awesome/icons/th'
 import 'vue-awesome/icons/th-list'
+import 'vue-awesome/icons/times'
 import Papa from 'papaparse'
 import _ from 'lodash'
 
@@ -117,7 +128,8 @@ export default {
           } else {
             this.lookups.push({name: this.name, values: results.data})
           }
-
+          this.clear()
+          this.hideForm()
           this.$emit('onChange', this.lookups)
         }
       })
@@ -165,6 +177,9 @@ export default {
     },
     hideForm () {
       this.show = false
+    },
+    handleClose () {
+      this.hideForm()
     }
   }
 }

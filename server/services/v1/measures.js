@@ -61,11 +61,11 @@ const calc = async function (ctx, next) {
     const context = Object.assign({}, {
       lookupTables: measure.lookupTables
     }, params)
-    console.log(context);
+  
     try {
       const omitAttribs = ['lookupTables', ...Object.keys(params)]
       const start = new Date()
-      result = _.omit(JSOEE.eval(measure.algorithm, context), omitAttribs)
+      result = _.omit(JSOEE.eval(measure.calculation, context), omitAttribs)
       const end = new Date()
       calculationTime = end - start
       ctx.status = 200;

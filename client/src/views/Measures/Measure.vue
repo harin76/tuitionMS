@@ -45,10 +45,10 @@
           >
           </parameter-section>
 
-          <algorithm-section v-if="currentTab === 'algorithm'"
-            :script="measure.algorithm"
-            v-on:onChange="handleAlgorithmChanged($event)">
-          </algorithm-section>
+          <calculation-section v-if="currentTab === 'calculation'"
+            :script="measure.calculation"
+            v-on:onChange="handleCalculationChanged($event)">
+          </calculation-section>
 
           <test-section v-if="currentTab === 'test'" :measure="measure">
           </test-section>
@@ -62,9 +62,9 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import GeneralSection from './GeneralSection'
-import AlgorithmSection from './AlgorithmSection'
 import LookupSection from './LookupSection'
 import ParameterSection from './ParameterSection'
+import CalculationSection from './CalculationSection'
 import TestSection from './TestSection'
 
 export default {
@@ -78,9 +78,9 @@ export default {
   },
   components: {
     GeneralSection,
-    AlgorithmSection,
     LookupSection,
     ParameterSection,
+    CalculationSection,
     TestSection
   },
   data () {
@@ -93,7 +93,7 @@ export default {
         // {name: 'referenceTables', caption: 'Reference Tables'},
         {name: 'lookupTables', caption: 'Lookup Tables'},
         {name: 'parameters', caption: 'Parameters'},
-        {name: 'algorithm', caption: 'Algorithm'},
+        {name: 'calculation', caption: 'Calculation'},
         {name: 'test', caption: 'Test'}
       ]
     }
@@ -131,8 +131,8 @@ export default {
     isActive (tab) {
       return tab === this.currentTab
     },
-    handleAlgorithmChanged (algorithm) {
-      this.setMeasureAttribute({algorithm})
+    handleCalculationChanged (calculation) {
+      this.setMeasureAttribute({calculation})
     },
     handleGeneralSectionChanged (attribute) {
       this.setMeasureAttribute(attribute)

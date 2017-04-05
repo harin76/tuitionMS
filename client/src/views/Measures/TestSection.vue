@@ -161,7 +161,7 @@ export default {
       const omitAttribs = ['lookupTables', ...Object.keys(this.testParams)]
       try {
         const start = new Date()
-        this.result = _.omit(JSOEE.eval(this.measure.algorithm, context), omitAttribs)
+        this.result = _.omit(JSOEE.eval(this.measure.calculation, context), omitAttribs)
         const end = new Date()
         this.calculationTime = end - start
       } catch (error) {
