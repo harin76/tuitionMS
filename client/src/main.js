@@ -7,6 +7,7 @@ import store from './store'
 
 // Styles
 import 'bulma'
+// import './styles/app.css'
 import './styles/app.sass'
 
 Vue.config.productionTip = false

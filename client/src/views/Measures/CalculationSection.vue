@@ -1,6 +1,6 @@
 <template>
   <div class="column editor">
-    <editor :content="script || ''" :lang="'text'" :theme="'github'" :height="'700px'"></editor>
+    <editor :content="script || ''" :lang="'javascript'" :theme="'github'" :height="'700px'" :options="options"></editor>
   </div>
 </template>
 
@@ -14,6 +14,8 @@ import 'brace/theme/tomorrow_night'
 import 'brace/theme/tomorrow_night_bright'
 import 'brace/theme/tomorrow_night_blue'
 
+// Andale Mono, FreeMono, DejaVu Sans, Arial,
+
 export default {
   name: 'calculation-section',
   components: { editor },
@@ -22,7 +24,9 @@ export default {
       options: {fontSize: '1em'}
     }
   },
+
   props: {
+
     script: String
   },
   methods: {
