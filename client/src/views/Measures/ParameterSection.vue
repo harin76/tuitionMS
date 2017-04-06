@@ -35,7 +35,7 @@
       </tbody>
     </table>
     </div>
-    <transition name="fade">
+    <transition name="slide-fade">
       <div class="slider" v-if="show">
         <div class="card">
           <header class="card-header">

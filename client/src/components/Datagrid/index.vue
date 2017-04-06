@@ -13,7 +13,8 @@
       </div>
     </div>
     <!-- DATA TABLE HERE !-->
-    <table class="table is-bordered is-narrow">
+    <div class='table-wrapper'>
+      <table class="table is-bordered is-narrow">
       <thead>
         <tr>
           <th v-for="column in columns"> {{column.caption | capitalize}}</th>
@@ -32,6 +33,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
   </div>
 </template>
 <script>
@@ -67,3 +69,6 @@ export default {
   }
 }
 </script>
+<style scoped>
+
+</style>

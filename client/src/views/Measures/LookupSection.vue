@@ -25,7 +25,7 @@
         </tbody>
       </table>
     </div>
-    <transition name="fade">
+    <transition name="slide-fade">
       <div class="slider" v-if="show">
         <div class="card">
           <header class="card-header">
@@ -33,7 +33,7 @@
             </p>
             <a class="card-header-icon">
               <span class="icon">
-                <a @click="handleClose"><icon name="times"></icon></a>
+                <a @click="handleClose"><icon name="times" scale="1"></icon></a>
               </span>
             </a>
           </header>
@@ -58,11 +58,13 @@
                   <textarea class="textarea csv-bin" rows="10" v-model="values" placeholder="Values"></textarea>
                 </p>
                 <p class="control" v-if="grid">
-                  <table class="table is-narrow is-bordered">
-                    <tr v-for="row in getRows()">
-                      <td v-for="col in row">{{col}}</td>
-                    </tr>
-                  </table>
+                  <div v-if="grid" class="table-wrapper lookup-values-grid">
+                    <table class="table is-narrow is-bordered">
+                      <tr v-for="row in getRows()">
+                        <td v-for="col in row">{{col}}</td>
+                      </tr>
+                    </table>
+                  </div>
                 </p>
               </div>
             </div>
@@ -200,11 +202,7 @@ textarea.csv-bin {
  margin-top: 10px;
 }
 
-.fade-enter-active, .fade-leave-active {
-transition: opacity .5s
-}
-
-.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
-opacity: 0
+.lookup-values-grid {
+  max-height: 250px;
 }
 </style>

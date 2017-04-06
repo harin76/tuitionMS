@@ -23,7 +23,7 @@
             </li>
           </ul>
         </div>
-        <div class="columns tab-body">
+        <div class="columns tab-body has-overflow-hidden">
 
           <general-section :data="measure"
             :endUses="endUses"

@@ -1,6 +1,6 @@
 <template>
   <div class="column editor">
-    <editor :content="script || ''" :lang="'text'" :theme="'github'" :height="'700px'" :options="options"></editor>
+    <editor :content="script || ''" :lang="'text'" :theme="'github'" :height="'700px'"></editor>
   </div>
 </template>
 

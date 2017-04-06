@@ -1,9 +1,40 @@
 <template>
   <div class="column">
     <div class="columns">
-      <div class="column is-6 params">
-      <h4 class="subtitle is-4">Parameters</h4>
-        <div class="column">
+      <div class="column is-6">
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              Parameters
+            </p>
+          </header>
+          <div class="card-content">
+            <div class="card-scroll-content params">
+              <div class="field" v-for="param in measure.parameters">
+                <label class="label is-small" disabled="param.isConstant">{{param.displayName}}</label>
+                <p class="control">
+                  <input v-if="!isNumeric(param.type)" class="input is-small"
+                  type="text"
+                  v-model="testParams[param.name]"
+                  @change="handleTestParamChange()"
+                  :placeholder="param.description"
+                  :disabled="param.isConstant">
+                  <input v-else class="input is-small"
+                  type="number"
+                  v-model="testParams[param.name]"
+                  @change="handleTestParamChange()"
+                  :placeholder="param.description"
+                  :disabled="param.isConstant">
+                </p>
+              </div>
+            </div>
+          </div>
+          <footer class="card-footer">
+            <a class="card-footer-item" v-on:click="handleCalculate">Calculate</a>
+            <a class="card-footer-item" v-on:click="handleClear">Clear</a>
+          </footer>
+        </div>
+      <!-- <div class="column">
           <div class="field" v-for="param in measure.parameters">
             <label class="label" disabled="param.isConstant">{{param.displayName}}</label>
             <p class="control">
@@ -21,66 +52,37 @@
               :disabled="param.isConstant">
             </p>
           </div>
-          <!-- <div class="field is-horizontal" v-for="param in measure.parameters">
-            <div class="field-label" :disabled="param.isConstant">
-              {{param.displayName}}
-            </div>
-            <div class="field-body">
-              <div class="field">
-                    <div class="control">
-                      <input v-if="!isNumeric(param.type)" class="input"
-                      type="text"
-                      v-model="testParams[param.name]"
-                      @change="handleTestParamChange()"
-                      :placeholder="param.description"
-                      :disabled="param.isConstant">
-                      <input v-else class="input"
-                      type="number"
-                      v-model="testParams[param.name]"
-                      @change="handleTestParamChange()"
-                      :placeholder="param.description"
-                      :disabled="param.isConstant">
-                    </div>
-                  </div>
-            </div>
-          </div> -->
-
-          <!-- <div class="field" v-for="param in measure.parameters">
-            <label class="label">{{param.name}}</label>
-            <p class="control">
-              <input class="input" v-model="testParams[param.name]" type="text" :placeholder="param.description">
-            </p>
-          </div> -->
-
           <div class="block is-pulled-right">
             <a class="button is-primary" @click="handleCalculate">Calculate</a>
             <a class="button is-link" @click="handleClear">Clear</a>
           </div>
-        </div>
+        </div> -->
 
       </div>
 
-      <div class="column params">
-        <!-- <div class="content">
-          <h4>Parameters</h4>
-          <table>
-            <tr v-for="(value, key) in testParams">
-              <td>{{key}}</td><td><strong>{{value}}</strong></td>
-            </tr>
-          </table>
-        </div>
-          <br> -->
-        <div class="panel">
-          <h4 class="subtitle is-4">Result</h4>
-          <table class="table is-narrow">
-            <tr v-for="(value, key) in result">
-              <td>{{key | titleCase}}</td><td class="has-text-right"><span class="value">{{round(value)}}</span></td>
-            </tr>
-          </table>
-          <p class="has-text-right"><small>Calculation took {{calculationTime}} ms </small></p>
+      <div class="column">
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              Result
+            </p>
+          </header>
+          <div class="card-content">
+            <div class="card-scroll-content">
+              <table class="table is-narrow">
+                <tr v-for="(value, key) in result">
+                  <td>{{key | titleCase}}</td><td class="has-text-right"><span class="value">{{format(value)}}</span></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <footer class="card-footer">
+            <p class="card-footer-item has-text-right">
+              <small v-if="calculationTime">Calculation took {{calculationTime}} ms </small>
+            </p>
+          </footer>
         </div>
       </div>
-
     </div>
   </div>
 </template>
@@ -112,6 +114,13 @@ export default {
   methods: {
     round (num) {
       return _.round(num, 2)
+    },
+    format (val) {
+      if (_.isNumber(val)) {
+        return this.round(val)
+      }
+
+      return val
     },
     isNumeric (type) {
       return type === 'Number' || type === 'Integer'
@@ -188,8 +197,8 @@ export default {
   font-weight: lighter;
 }
 .params {
-  background-color: #ffffff;
-  border: 1px solid #e8e8e8;
+  background-color: #fff;
+  padding-right: 10px;
 }
 
 </style>

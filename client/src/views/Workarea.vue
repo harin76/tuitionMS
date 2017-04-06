@@ -1,7 +1,7 @@
 <template>
-  <div class="columns">
+  <div class="columns has-overflow-hidden">
     <sidemenu :menus="menus"></sidemenu>
-    <div class="column is-10 is-full-height">
+    <div class="column is-10 is-full-height has-overflow-hidden">
       <navbar></navbar>
       <component :is="type"></component>
     </div>

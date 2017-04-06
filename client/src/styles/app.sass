@@ -4,6 +4,7 @@ $primary: #72d0eb // Update blue
 body
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"
   height: 100%
+  overflow: hidden
 
 .button.is-success
   background-color: #2EB398
@@ -58,8 +59,11 @@ body
 .tab-body
   min-height: 600px
   background-color: #f6f6f6
-  padding: 5px 20px
+  padding: 5px 10px
   overflow-y: auto
+
+.has-overflow-hidden
+  overflow: hidden
 
 @import './data-grid'
 @import './transitions'
