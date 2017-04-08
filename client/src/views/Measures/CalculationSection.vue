@@ -1,6 +1,6 @@
 <template>
   <div class="column editor">
-    <editor :content="script || ''" :lang="'javascript'" :theme="'github'" :height="'700px'" :options="options"></editor>
+    <editor :content="script || ''" :lang="'javascript'" :theme="'github'" :height="'500px'" :options="options"></editor>
   </div>
 </template>
 
@@ -21,7 +21,7 @@ export default {
   components: { editor },
   data () {
     return {
-      options: {fontSize: '1em'}
+      options: {fontSize: '0.8em'}
     }
   },
 
