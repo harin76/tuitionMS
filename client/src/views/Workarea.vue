@@ -12,17 +12,13 @@
 import Sidemenu from '@/components/Sidemenu'
 import Navbar from '@/components/Navbar'
 import Home from '@/views/Home'
-import ListMeasures from '@/views/Measures/ListMeasures'
-import Measure from '@/views/Measures/Measure'
 
 export default {
   name: 'workarea',
   components: {
     Sidemenu,
     Navbar,
-    Home,
-    ListMeasures,
-    Measure
+    Home
   },
   data () {
     return {
@@ -32,7 +28,6 @@ export default {
           title: 'Main',
           items: [
             {to: '/', name: 'Home'},
-            {to: '/list-measures', name: 'Measures'}/*,
             {to: '/register', name: 'Register'},
             {to: '/employees', name: 'Employees'},
             {to: '/customers', name: 'Customers'},
@@ -45,7 +40,7 @@ export default {
             {to: '/categories', name: 'Categories'},
             {to: '/modifiers', name: 'Modifiers'},
             {to: '/taxes', name: 'Taxes'},
-            {to: '/discounts', name: 'Discounts'} */
+            {to: '/discounts', name: 'Discounts'}
           ]
         }
       ]

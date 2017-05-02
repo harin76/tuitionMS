@@ -3,6 +3,6 @@
 const config = require('./config.global');
 
 config.env = "development";
-config.mongo.dbName = "etrm_dev";
+config.mongo.dbName = config.mongo.dbName + "_dev";
 
 module.exports = config;

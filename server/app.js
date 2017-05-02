@@ -1,35 +1,42 @@
-'use strict';
+'use strict'
 
-const Koa = require('koa');
-const mount = require('koa-mount');
-const mongo = require('koa-mongo');
+const Koa = require('koa')
+const mount = require('koa-mount')
+const authHelper = require('./utils/authHelper')
+const config = require('./config')
 
-const config = require('./config');
-const app = new Koa();
-const domains = ['alpha', 'beta', 'gamma'];
-
-async function validateDomain (ctx, next){
-  const domain = ctx.subdomains[4];
-  if (!domains.includes(domain)) {
-    ctx.throw(404, 'tenant not found', {domain});
-  }
-  ctx.tenant = domain;
-  await next();
-}
-
-app.use(mongo({
+const mongoOpts = {
   host: config.mongo.host,
   max: 5,
   min: 1,
   timeout: 30000,
   logout: false
-}));
+}
 
-app.use(validateDomain);
+// init the connection pool
+require('./db/connectionMgr').init(mongoOpts)
 
-const v1 = new Koa();
+const app = new Koa()
+
+// Set the tenant
+async function setTenant (ctx, next) {
+  // only a single tenant
+  ctx.tenant = config.mongo.dbName
+  await next()
+}
+app.use(setTenant)
+app.use(authHelper.jwt({secret: config.secret}))
+
+const auth = new Koa()
+auth.use(require('./services').auth)
+
+const v1 = new Koa()
 v1.use(require('./services').v1)
 
+// mount auth services
+app.use(mount('/auth', auth))
+
 // mount the v1 services
-app.use(mount('/api/v1', v1));
-module.exports = app;
+app.use(mount('/api/v1', v1))
+
+module.exports = app
