@@ -1,20 +1,19 @@
 <template>
-  <div>
-    <div class="columns">
-      <div class="column is-10">
-        <h1 class="title is-2">{{title}}</h1>
+  <div class="mdl-cell mdl-cell--12-col">
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--8-col">
+        <h5 class="title">{{title}}</h5>
       </div>
-      <div class="column is-2">
-        <button
-          class="button is-pulled-right is-dark is-outlined"
-          v-on:click="handleAddNew">
-          New
+      <div class="mdl-cell mdl-cell--4-col">
+        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" v-on:click="handleAddNew">
+          ADD NEW
         </button>
       </div>
     </div>
     <!-- DATA TABLE HERE !-->
-    <div class='table-wrapper'>
-      <table class="table is-bordered is-narrow">
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--12-col">
+        <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
       <thead>
         <tr>
           <th v-for="column in columns"> {{column.caption | capitalize}}</th>
@@ -33,6 +32,7 @@
         </tr>
       </tbody>
     </table>
+      </div>
     </div>
   </div>
 </template>

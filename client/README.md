@@ -1,6 +1,6 @@
-# e-trm-client
+# tuition mamagement system client
 
-> eTRM
+> Tuition Management System
 
 ## Build Setup
 

@@ -2,6 +2,8 @@
 
 const Koa = require('koa')
 const mount = require('koa-mount')
+const cors = require('kcors')
+
 const authHelper = require('./utils/authHelper')
 const config = require('./config')
 
@@ -26,6 +28,7 @@ async function setTenant (ctx, next) {
 }
 app.use(setTenant)
 app.use(authHelper.jwt({secret: config.secret}))
+app.use(cors())
 
 const auth = new Koa()
 auth.use(require('./services').auth)

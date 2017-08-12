@@ -1,24 +1,22 @@
 <template>
-  <div class="columns has-overflow-hidden">
-    <sidemenu :menus="menus"></sidemenu>
-    <div class="column is-full-height has-overflow-hidden">
-      <!-- <navbar></navbar> -->
-      <component :is="type"></component>
-    </div>
-  </div>
+  <component :is="type"></component>
 </template>
 
 <script>
 import Sidemenu from '@/components/Sidemenu'
 import Navbar from '@/components/Navbar'
 import Home from '@/views/Home'
+import ListStudents from '@/views/Students/ListStudents'
+import Student from '@/views/Students/Student'
 
 export default {
   name: 'workarea',
   components: {
     Sidemenu,
     Navbar,
-    Home
+    Home,
+    ListStudents,
+    Student
   },
   data () {
     return {

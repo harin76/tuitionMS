@@ -12,19 +12,19 @@ export default new Router({
       component: createWorkarea('Home')
     },
     {
-      path: '/list-measures',
-      name: 'List Measures',
-      component: createWorkarea('ListMeasures')
+      path: '/students',
+      name: 'ListStudents',
+      component: createWorkarea('ListStudents')
     },
     {
-      path: '/measure',
-      name: 'CreateMeasure',
-      component: createWorkarea('Measure')
+      path: '/student',
+      name: 'CreateStudent',
+      component: createWorkarea('Student')
     },
     {
-      path: '/measure/:id',
-      name: 'EditMeasure',
-      component: createWorkarea('Measure')
+      path: '/student/:id',
+      name: 'EditStudent',
+      component: createWorkarea('Student')
     }
   ]
 })

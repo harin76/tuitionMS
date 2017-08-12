@@ -3,7 +3,7 @@
 const Joi = require('joi')
 
 const contact = Joi.object().keys({
-  name: Joi.string().required(),
+  name: Joi.string(),
   mobile: Joi.string(),
   email: Joi.string()
 })
