@@ -1,4 +1,4 @@
-# tuition mamagement system client
+# Tuition Management System Client Application
 
 > Tuition Management System
 
